@@ -115,17 +115,40 @@ The terms "JSON", "JSON text", "JSON value", "member", "element", "object", "arr
 "number", "string", "boolean", "true", "false", and "null" in this document are to
 be interpreted as defined in {{!RFC8259}}.
 
-# Overview
+## Functionality
 
-JSON Schemas are JSON documents that describe and constrain other JSON
-documents through keywords and keyword behaviors.  The specification
+### Validation
+
+A JSON Schema document (a _schema_) notates a grammar that describes a language of JSON documents:
+That is, it describes a set of JSON documents by listing rules to classify an _input_, some arbritrary JSON document, as within or not within the set.
+The largest possible set is that of all JSON documents (all documents that are valid `application/json`).
+The smallest set is the empty set.
+
+A _validator_ (also known as an _acceptor_) is a process that tests if a particular input is described by the schema, by evaluating it against the requirements.
+An accepted input is called an _instance_ of the schema, and a rejected input is called a _violation_ of the schema.
+
+In all validator implementations, equivalent JSON values MUST return the same validation result and annotations. For example, selection between equivalent character escapes, or use of whitespace, does not affect the result. This also means that a validation keyword MUST NOT accept or reject based on third factors (those factors besides the schema and the input itself). A separate "outside verification" scheme that queries external data sources is possible, but outside the scope of this document.
+
+### Annotation
+
+A JSON Schema may describe additional output to accompany an "accept" result, called _annotations_.
+An annotation is a tuple that, at the minimum, relates a particular annotation keyword in the schema to a particular value within the instance.
+Annotations typically document the meaning of properties, declare relationships between data, or denote hyperlinks.
+
+Output annotations might only be "as true as" the input, and useful only for select inputs. For example, annotations may only meaningfully describe inputs with a particular "profile" link relation, or in some particular context. In any event, annotations never describe violations (rejected inputs).
+
+The interface to access annotations may be highly configurable depending on the implementation, in such ways as limiting output to certain annotation keywords, aggregating values together, or other features to enhance performance. Annotation output may be bypassed entirely.
+
+Annotations may be presented as a set, or as a stream of events, however if the input is rejected during processing, this voids all annotations previously emitted from that input.
+
+### Internet media types
+
+The specification
 registers the "application/schema+json" media type to identify a JSON Schema
 resource, and the "application/schema-instance+json" media type to identify
-a resource that can be validated against a JSON Schema.
+an instance of a particular JSON Schema.
 
-The result of validating a JSON document against a JSON Schema can be
-framed as rules that decide if an *input* is in the *valid set* according to
-that schema, . An input in the valid set is considered an *instance* of the schema.
+### Keywords
 
 JSON Schema uses *keywords* to assert constraints on JSON documents or provide
 annotations with additional information.  Additional keywords combine other
@@ -151,7 +174,7 @@ or both.  While not part of the required core vocabulary, for maximum
 interoperability this additional vocabulary is included in this document
 and its use is strongly encouraged.
 
-## Vocabularies
+### Vocabularies
 
 To facilitate re-use, keywords can be organized into vocabularies. A vocabulary
 consists of a list of keywords, together with their syntax and semantics.
