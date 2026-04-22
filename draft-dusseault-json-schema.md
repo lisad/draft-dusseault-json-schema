@@ -119,7 +119,7 @@ be interpreted as defined in {{!RFC8259}}.
 
 A JSON Schema implementation takes input in the form of a JSON-compatible data
 structure and performs validation and, if the input is accepted as a valid
-instance, returns a standard annotation output.  
+instance, returns a standard annotation output.
 
 ### Validation
 
