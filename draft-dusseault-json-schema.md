@@ -2120,7 +2120,7 @@ Omitting these keywords has the same behavior as values of false.
 
 ### "readOnly" and "writeOnly" example
 
-In the following example of a read/write API accepting and producing 
+In the following example of a read/write API accepting and producing
 JSON representations of resources, "username" is a field meant for display
 and cannot be changed, while "password" cannot be retrieved for display
 but can be set to a new value.
