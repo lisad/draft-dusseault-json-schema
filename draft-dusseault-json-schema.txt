@@ -5,9 +5,9 @@
 Network Working Group                                       L. Dusseault
 Internet-Draft                                  Data Transfer Initiative
 Intended status: Informational                                 A. Wright
-Expires: 10 October 2026                                                
+Expires: 24 October 2026                                                
                                                               H. Andrews
-                                                            8 April 2026
+                                                           22 April 2026
 
 
                               JSON Schema
@@ -38,7 +38,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 October 2026.
+   This Internet-Draft will expire on 24 October 2026.
 
 Copyright Notice
 
@@ -58,172 +58,176 @@ Table of Contents
 
    1.  Introduction
      1.1.  Notational Conventions
-   2.  Overview
-     2.1.  Vocabularies
-   3.  Terminology
-   4.  Overall Definitions and Requirements
-     4.1.  JSON Schema Documents
-       4.1.1.  Trivial schema documents
-       4.1.2.  Root Schema and Subschemas and Resources
-     4.2.  Instance
-       4.2.1.  Input Equality
-     4.3.  Keywords
-     4.4.  Fragment Identifiers
-     4.5.  Other General Considerations
-       4.5.1.  Range of JSON Values
-       4.5.2.  Requirements for handling extensions
-       4.5.3.  Validation
-   5.  Core Keywords
-     5.1.  Environment
-       5.1.1.  "$schema"
-       5.1.2.  "$vocabulary"
-       5.1.3.  "$id"
-       5.1.4.  "$anchor" and "$dynamicAnchor"
-     5.2.  Definitions and References
-       5.2.1.  "$ref" and "$dynamicRef"
-       5.2.2.  "$defs"
-     5.3.  "$comment"
-   6.  Subschema keywords
+     1.2.  Functionality
+       1.2.1.  Validation
+       1.2.2.  Annotation
+       1.2.3.  Internet media types
+       1.2.4.  Keywords
+       1.2.5.  Vocabularies
+   2.  Terminology
+   3.  Overall Definitions and Requirements
+     3.1.  JSON Schema Documents
+       3.1.1.  Trivial schema documents
+       3.1.2.  Root Schema and Subschemas and Resources
+     3.2.  Instance
+       3.2.1.  Input Equality
+     3.3.  Keywords
+     3.4.  Fragment Identifiers
+     3.5.  Other General Considerations
+       3.5.1.  Range of JSON Values
+       3.5.2.  Requirements for handling extensions
+       3.5.3.  Validation
+   4.  Core Keywords
+     4.1.  Environment
+       4.1.1.  "$schema"
+       4.1.2.  "$vocabulary"
+       4.1.3.  "$id"
+       4.1.4.  "$anchor" and "$dynamicAnchor"
+     4.2.  Definitions and References
+       4.2.1.  "$ref" and "$dynamicRef"
+       4.2.2.  "$defs"
+     4.3.  "$comment"
+   5.  Subschema keywords
+     5.1.  Keyword Independence
+     5.2.  Keywords for Applying Subschemas in Place
+       5.2.1.  "allOf"
+       5.2.2.  "anyOf"
+       5.2.3.  "oneOf"
+       5.2.4.  "not"
+       5.2.5.  "if"
+       5.2.6.  "then"
+       5.2.7.  "else"
+       5.2.8.  "dependentSchemas"
+     5.3.  Keywords for Applying Subschemas to Arrays
+       5.3.1.  "prefixItems"
+       5.3.2.  "items"
+       5.3.3.  "contains"
+     5.4.  Keywords for Applying Subschemas to Objects
+       5.4.1.  "properties"
+       5.4.2.  "patternProperties"
+       5.4.3.  "additionalProperties"
+       5.4.4.  "propertyNames"
+   6.  Keywords for Unevaluated Locations
      6.1.  Keyword Independence
-     6.2.  Keywords for Applying Subschemas in Place
-       6.2.1.  "allOf"
-       6.2.2.  "anyOf"
-       6.2.3.  "oneOf"
-       6.2.4.  "not"
-       6.2.5.  "if"
-       6.2.6.  "then"
-       6.2.7.  "else"
-       6.2.8.  "dependentSchemas"
-     6.3.  Keywords for Applying Subschemas to Arrays
-       6.3.1.  "prefixItems"
-       6.3.2.  "items"
-       6.3.3.  "contains"
-     6.4.  Keywords for Applying Subschemas to Objects
-       6.4.1.  "properties"
-       6.4.2.  "patternProperties"
-       6.4.3.  "additionalProperties"
-       6.4.4.  "propertyNames"
-   7.  Keywords for Unevaluated Locations
-     7.1.  Keyword Independence
-     7.2.  "unevaluatedItems"
-     7.3.  "unevaluatedProperties"
-   8.  Keywords for Structural Validation
-     8.1.  Validation Keywords for Any Instance Type
-       8.1.1.  "type"
-       8.1.2.  "enum"
-       8.1.3.  "const"
-     8.2.  Validation Keywords for Numeric Inputs (number and integer)
-       8.2.1.  "multipleOf"
-       8.2.2.  "maximum"
-       8.2.3.  "exclusiveMaximum"
-       8.2.4.  "minimum"
-       8.2.5.  "exclusiveMinimum"
-     8.3.  Validation Keywords for Strings
-       8.3.1.  "maxLength"
-       8.3.2.  "minLength"
-       8.3.3.  "pattern"
-     8.4.  Validation Keywords for Arrays
-       8.4.1.  "maxItems"
-       8.4.2.  "minItems"
-       8.4.3.  "uniqueItems"
-       8.4.4.  "maxContains"
-       8.4.5.  "minContains"
-     8.5.  Validation Keywords for Objects
-       8.5.1.  "maxProperties"
-       8.5.2.  "minProperties"
-       8.5.3.  "required"
-       8.5.4.  "dependentRequired"
-   9.  Vocabularies for Semantic Content With "format"
+     6.2.  "unevaluatedItems"
+     6.3.  "unevaluatedProperties"
+   7.  Keywords for Structural Validation
+     7.1.  Validation Keywords for Any Instance Type
+       7.1.1.  "type"
+       7.1.2.  "enum"
+       7.1.3.  "const"
+     7.2.  Validation Keywords for Numeric Inputs (number and integer)
+       7.2.1.  "multipleOf"
+       7.2.2.  "maximum"
+       7.2.3.  "exclusiveMaximum"
+       7.2.4.  "minimum"
+       7.2.5.  "exclusiveMinimum"
+     7.3.  Validation Keywords for Strings
+       7.3.1.  "maxLength"
+       7.3.2.  "minLength"
+       7.3.3.  "pattern"
+     7.4.  Validation Keywords for Arrays
+       7.4.1.  "maxItems"
+       7.4.2.  "minItems"
+       7.4.3.  "uniqueItems"
+       7.4.4.  "maxContains"
+       7.4.5.  "minContains"
+     7.5.  Validation Keywords for Objects
+       7.5.1.  "maxProperties"
+       7.5.2.  "minProperties"
+       7.5.3.  "required"
+       7.5.4.  "dependentRequired"
+   8.  Vocabularies for Semantic Content With "format"
+     8.1.  Foreword
+     8.2.  Implementation Requirements
+       8.2.1.  Format-Annotation Vocabulary
+       8.2.2.  Format-Assertion Vocabulary
+       8.2.3.  Custom format attributes
+     8.3.  Defined Formats
+       8.3.1.  Dates, Times, and Duration
+       8.3.2.  Email Addresses
+       8.3.3.  Hostnames
+       8.3.4.  IP Addresses
+       8.3.5.  Resource Identifiers
+       8.3.6.  Templates
+       8.3.7.  JSON Pointers
+       8.3.8.  Expressions
+   9.  A Vocabulary for the Contents of String-Encoded Data
      9.1.  Foreword
      9.2.  Implementation Requirements
-       9.2.1.  Format-Annotation Vocabulary
-       9.2.2.  Format-Assertion Vocabulary
-       9.2.3.  Custom format attributes
-     9.3.  Defined Formats
-       9.3.1.  Dates, Times, and Duration
-       9.3.2.  Email Addresses
-       9.3.3.  Hostnames
-       9.3.4.  IP Addresses
-       9.3.5.  Resource Identifiers
-       9.3.6.  Templates
-       9.3.7.  JSON Pointers
-       9.3.8.  Expressions
-   10. A Vocabulary for the Contents of String-Encoded Data
-     10.1.  Foreword
-     10.2.  Implementation Requirements
-     10.3.  "contentEncoding"
-     10.4.  "contentMediaType"
-     10.5.  "contentSchema"
-     10.6.  Example
-   11. A Vocabulary for Basic Meta-Data Annotations
-     11.1.  "title" and "description"
-     11.2.  "default"
-     11.3.  "deprecated"
-     11.4.  "readOnly" and "writeOnly"
-     11.5.  "examples"
-   12. Loading and Processing Schemas
-     12.1.  Loading a Schema
-       12.1.1.  Initial Base URI
-       12.1.2.  Loading a referenced schema
-       12.1.3.  Detecting a Meta-Schema
-     12.2.  Dereferencing
-       12.2.1.  Relative References
-       12.2.2.  JSON Pointer fragments and embedded schema resources
-     12.3.  Compound Documents
-       12.3.1.  Bundling
-       12.3.2.  Differing and Default Dialects
-       12.3.3.  Validating
-     12.4.  Caveats
-       12.4.1.  Guarding Against Infinite Recursion
-       12.4.2.  References to Possible Non-Schemas"
-     12.5.  RESTful / Hypermedia Schema References
-       12.5.1.  Linking to a Schema
-       12.5.2.  Usage Over HTTP
-   13. Keyword Behaviors
-     13.1.  Lexical Scope and Dynamic Scope
-     13.2.  Keyword Interactions
-     13.3.  Default Behaviors
-     13.4.  Handling unrecognized or unsupported keywords
-     13.5.  Identifiers
-     13.6.  Applicators
-       13.6.1.  Referenced and Referencing Schemas
-     13.7.  Assertions
-       13.7.1.  Assertions and Input Primitive Types
-     13.8.  Annotations
-       13.8.1.  Collecting Annotations
-     13.9.  Reserved Locations
-     13.10. Loading Input Data
-   14. Output Formatting
-     14.1.  Format
-     14.2.  Output Formats
-     14.3.  Minimum Information
-       14.3.1.  Keyword Relative Location
-       14.3.2.  Keyword Absolute Location
-       14.3.3.  Instance Location
-       14.3.4.  Error or Annotation
-       14.3.5.  Nested Results
-     14.4.  Output Structure
-       14.4.1.  Flag
-       14.4.2.  Basic
-       14.4.3.  Detailed
-       14.4.4.  Verbose
-       14.4.5.  Output validation schemas
-   15. Extensibility
-     15.1.  Non-JSON Inputs
-     15.2.  Schema Vocabularies
-     15.3.  Meta-Schemas
-     15.4.  Default JSON Schema Dialect
-   16. Security Considerations
-   17. Interoperability Considerations
-     17.1.  Programming Language Independence
-     17.2.  Mathematical Integers
-     17.3.  Regular Expressions
-   18. IANA Considerations
-     18.1.  application/schema+json
-     18.2.  application/schema-instance+json
-   19. References
-     19.1.  Normative References
-     19.2.  Informative References
+     9.3.  "contentEncoding"
+     9.4.  "contentMediaType"
+     9.5.  "contentSchema"
+     9.6.  Example
+   10. A Vocabulary for Basic Meta-Data Annotations
+     10.1.  "title" and "description"
+     10.2.  "default"
+     10.3.  "deprecated"
+     10.4.  "readOnly" and "writeOnly"
+     10.5.  "examples"
+   11. Loading and Processing Schemas
+     11.1.  Loading a Schema
+       11.1.1.  Initial Base URI
+       11.1.2.  Loading a referenced schema
+       11.1.3.  Detecting a Meta-Schema
+     11.2.  Dereferencing
+       11.2.1.  Relative References
+       11.2.2.  JSON Pointer fragments and embedded schema resources
+     11.3.  Compound Documents
+       11.3.1.  Bundling
+       11.3.2.  Differing and Default Dialects
+       11.3.3.  Validating
+     11.4.  Caveats
+       11.4.1.  Guarding Against Infinite Recursion
+       11.4.2.  References to Possible Non-Schemas"
+     11.5.  RESTful / Hypermedia Schema References
+       11.5.1.  Linking to a Schema
+       11.5.2.  Usage Over HTTP
+   12. Keyword Behaviors
+     12.1.  Lexical Scope and Dynamic Scope
+     12.2.  Keyword Interactions
+     12.3.  Default Behaviors
+     12.4.  Handling unrecognized or unsupported keywords
+     12.5.  Identifiers
+     12.6.  Applicators
+       12.6.1.  Referenced and Referencing Schemas
+     12.7.  Assertions
+       12.7.1.  Assertions and Input Primitive Types
+     12.8.  Annotations
+       12.8.1.  Collecting Annotations
+     12.9.  Reserved Locations
+     12.10. Loading Input Data
+   13. Output Formatting
+     13.1.  Format
+     13.2.  Output Formats
+     13.3.  Minimum Information
+       13.3.1.  Keyword Relative Location
+       13.3.2.  Keyword Absolute Location
+       13.3.3.  Instance Location
+       13.3.4.  Error or Annotation
+       13.3.5.  Nested Results
+     13.4.  Output Structure
+       13.4.1.  Flag
+       13.4.2.  Basic
+       13.4.3.  Detailed
+       13.4.4.  Verbose
+       13.4.5.  Output validation schemas
+   14. Extensibility
+     14.1.  Non-JSON Inputs
+     14.2.  Schema Vocabularies
+     14.3.  Meta-Schemas
+     14.4.  Default JSON Schema Dialect
+   15. Security Considerations
+   16. Interoperability Considerations
+     16.1.  Programming Language Independence
+     16.2.  Mathematical Integers
+     16.3.  Regular Expressions
+   17. IANA Considerations
+     17.1.  application/schema+json
+     17.2.  application/schema-instance+json
+   18. References
+     18.1.  Normative References
+     18.2.  Informative References
    Appendix A.  Schema identification examples
    Appendix B.  Manipulating schema documents and references
      B.1.  Bundling schema resources into a single document
@@ -268,19 +272,65 @@ Table of Contents
    and "null" in this document are to be interpreted as defined in
    [RFC8259].
 
-2.  Overview
+1.2.  Functionality
 
-   JSON Schemas are JSON documents that describe and constrain other
-   JSON documents through keywords and keyword behaviors.  The
-   specification registers the "application/schema+json" media type to
-   identify a JSON Schema resource, and the "application/schema-
-   instance+json" media type to identify a resource that can be
-   validated against a JSON Schema.
+1.2.1.  Validation
 
-   The result of validating a JSON document against a JSON Schema can be
-   framed as rules that decide if an _input_ is in the _valid set_
-   according to that schema, . An input in the valid set is considered
-   an _instance_ of the schema.
+   A JSON Schema document (a _schema_) notates a grammar that describes
+   a language of JSON documents: That is, it describes a set of JSON
+   documents by listing rules to classify an _input_, some arbritrary
+   JSON document, as within or not within the set.  The largest possible
+   set is that of all JSON documents (all documents that are valid
+   application/json).  The smallest set is the empty set.
+
+   A _validator_ (also known as an _acceptor_) is a process that tests
+   if a particular input is described by the schema, by evaluating it
+   against the requirements.  An accepted input is called an _instance_
+   of the schema, and a rejected input is called a _violation_ of the
+   schema.
+
+   In all validator implementations, equivalent JSON values MUST return
+   the same validation result and annotations.  For example, selection
+   between equivalent character escapes, or use of whitespace, does not
+   affect the result.  This also means that a validation keyword MUST
+   NOT accept or reject based on third factors (those factors besides
+   the schema and the input itself).  A separate "outside verification"
+   scheme that queries external data sources is possible, but outside
+   the scope of this document.
+
+1.2.2.  Annotation
+
+   A JSON Schema may describe additional output to accompany an "accept"
+   result, called _annotations_. An annotation is a tuple that, at the
+   minimum, relates a particular annotation keyword in the schema to a
+   particular value within the instance.  Annotations typically document
+   the meaning of properties, declare relationships between data, or
+   denote hyperlinks.
+
+   Output annotations might only be "as true as" the input, and useful
+   only for select inputs.  For example, annotations may only
+   meaningfully describe inputs with a particular "profile" link
+   relation, or in some particular context.  In any event, annotations
+   never describe violations (rejected inputs).
+
+   The interface to access annotations may be highly configurable
+   depending on the implementation, in such ways as limiting output to
+   certain annotation keywords, aggregating values together, or other
+   features to enhance performance.  Annotation output may be bypassed
+   entirely.
+
+   Annotations may be presented as a set, or as a stream of events,
+   however if the input is rejected during processing, this voids all
+   annotations previously emitted from that input.
+
+1.2.3.  Internet media types
+
+   The specification registers the "application/schema+json" media type
+   to identify a JSON Schema resource, and the "application/schema-
+   instance+json" media type to identify an instance of a particular
+   JSON Schema.
+
+1.2.4.  Keywords
 
    JSON Schema uses _keywords_ to assert constraints on JSON documents
    or provide annotations with additional information.  Additional
@@ -309,7 +359,7 @@ Table of Contents
    additional vocabulary is included in this document and its use is
    strongly encouraged.
 
-2.1.  Vocabularies
+1.2.5.  Vocabularies
 
    To facilitate re-use, keywords can be organized into vocabularies.  A
    vocabulary consists of a list of keywords, together with their syntax
@@ -327,7 +377,7 @@ Table of Contents
    respect to an unrecognized vocabulary can be controlled when
    declaring which vocabularies are in use.
 
-3.  Terminology
+2.  Terminology
 
    These terms are all defined in the context of JSON Schema.  These
    quick definitions may not be enough to completely comprehend roles
@@ -411,14 +461,14 @@ Table of Contents
    Some implementations validate inputs, but some implementations
    generate documentation, data or code based on a schema.
 
-4.  Overall Definitions and Requirements
+3.  Overall Definitions and Requirements
 
    This section is the start of normative requirements especially for
    implementations.  However, a practitioner may wish to check the basic
-   meaning of terms defined above and skip toSection 13 where specific
+   meaning of terms defined above and skip toSection 12 where specific
    keywords and purposes begin to be defined.
 
-4.1.  JSON Schema Documents
+3.1.  JSON Schema Documents
 
    A JSON Schema, with its specific rules or constraints to describe and
    validate JSON data, is represented in digital form as a JSON schema
@@ -429,14 +479,14 @@ Table of Contents
    the object.  See below for special treatment of the boolean schemas.
 
    Schemas are used to validate inputs that may be instances
-   (Section 4.2) of the schema, but each schema can itself be
-   interpreted as an instance (see Section 15.3 for when and how this
+   (Section 3.2) of the schema, but each schema can itself be
+   interpreted as an instance (see Section 14.3 for when and how this
    happens).
 
    Schema documents SHOULD always be given the media type "application/
    schema+json", even when playing the role of an instance.
 
-4.1.1.  Trivial schema documents
+3.1.1.  Trivial schema documents
 
    The schema values "true" and "false" are trivial schemas.  The valid
    set for the 'true' schema is all possible JSON documents, and the
@@ -454,7 +504,7 @@ Table of Contents
    equivalents to the "false" schema.  Using the boolean values ensures
    that the intent is clear to both human readers and implementations.
 
-4.1.2.  Root Schema and Subschemas and Resources
+3.1.2.  Root Schema and Subschemas and Resources
 
    A JSON Schema resource is a schema which is canonically identified
    (in the sense of [RFC6596]) by an absolute URI ([RFC3986],
@@ -466,7 +516,7 @@ Table of Contents
    considered to be non-canonical.
 
    The root schema is always a schema resource, where the URI is
-   determined as described in Section 12.1.1.
+   determined as described in Section 11.1.1.
    // Note that documents that embed schemas in another format will not
    // have a root schema resource in this sense.  Exactly how such
    // usages fit with the JSON Schema document and resource concepts
@@ -488,7 +538,7 @@ Table of Contents
    As with the root schema, a subschema is either an object or a
    boolean.
 
-   As discussed in Section 5.1.3, a JSON Schema document can contain
+   As discussed in Section 4.1.3, a JSON Schema document can contain
    multiple JSON Schema resources.  When used without qualification, the
    term "root schema" refers to the document's root schema.  In some
    cases, resource root schemas are discussed.  A resource's root schema
@@ -500,7 +550,7 @@ Table of Contents
    reference, they are processed in the same way, with the same
    available behaviors.
 
-4.2.  Instance
+3.2.  Instance
 
    An instance of a schema is a JSON value or document that is in the
    valid set of a schema.  An instance has one of six primitive types,
@@ -522,8 +572,8 @@ Table of Contents
 
    Whitespace and formatting concerns, including different lexical
    representations of numbers that are equal within the data model, are
-   outside the scope of JSON Schema.  JSON Schema Section 2.1 that wish
-   to work with such differences in lexical representations SHOULD
+   outside the scope of JSON Schema.  JSON Schema Section 1.2.5 that
+   wish to work with such differences in lexical representations SHOULD
    define keywords to precisely interpret formatted strings within the
    data model rather than relying on having the original JSON
    representation Unicode characters available.
@@ -538,7 +588,7 @@ Table of Contents
    for a vocabulary to define as a value for a keyword, but the data
    model makes no distinction between integers and other numbers.
 
-4.2.1.  Input Equality
+3.2.1.  Input Equality
 
    Two JSON inputs are said to be equal if and only if they are of the
    same type and have the same value according to the JSON data model.
@@ -568,7 +618,7 @@ Table of Contents
    guaranteed to yield identical validation results for a given schema,
    regardless of their original formatting.
 
-4.3.  Keywords
+3.3.  Keywords
 
    Object properties that are applied to the instance are called
    keywords, or schema keywords.  Broadly speaking, keywords fall into
@@ -600,7 +650,7 @@ Table of Contents
 
    A JSON Schema MAY contain properties which are not schema keywords or
    are not recognized as schema keywords.  The behavior of such keywords
-   is governed by Section 13.4.
+   is governed by Section 12.4.
 
    Unknown keywords SHOULD be treated as annotations, where the value of
    the keyword is the value of the annotation.
@@ -608,7 +658,7 @@ Table of Contents
    An empty schema is a JSON Schema with no properties, or only unknown
    properties.
 
-4.4.  Fragment Identifiers
+3.4.  Fragment Identifiers
 
    In accordance with section 3.1 of [RFC6839], the syntax and semantics
    of fragment identifiers specified for any +json media type SHOULD be
@@ -636,17 +686,17 @@ Table of Contents
 
    Defining and referencing a plain name fragment identifier within an
    "application/schema+json" document are specified in the "$anchor"
-   keyword (Section 5.1.4) section.
+   keyword (Section 4.1.4) section.
 
-4.5.  Other General Considerations
+3.5.  Other General Considerations
 
-4.5.1.  Range of JSON Values
+3.5.1.  Range of JSON Values
 
    An instance may be any valid JSON value as defined by JSON
    ([RFC8259]).  JSON Schema imposes no restrictions on type: JSON
    Schema can describe any JSON value, including, for example, null.
 
-4.5.2.  Requirements for handling extensions
+3.5.2.  Requirements for handling extensions
 
    Additional schema keywords and schema vocabularies MAY be defined by
    any entity.  Save for explicit agreement, schema authors SHALL NOT
@@ -661,7 +711,7 @@ Table of Contents
    mechanism for registering and implementing such handlers is
    implementation-dependent.
 
-4.5.3.  Validation
+3.5.3.  Validation
 
    JSON Schema validation applies the rules of a JSON Schema to
    determine if an input is in the valid set for that schema.  An
@@ -676,12 +726,12 @@ Table of Contents
 
    This specification defines a set of assertion keywords, as well as a
    small vocabulary of metadata keywords that can be used to annotate
-   the JSON instance with useful information.  The Section 9 keyword is
+   the JSON instance with useful information.  The Section 8 keyword is
    intended primarily as an annotation, but can optionally be used as an
-   assertion.  The Section 10 keywords are annotations for working with
+   assertion.  The Section 9 keywords are annotations for working with
    documents embedded as JSON strings.
 
-5.  Core Keywords
+4.  Core Keywords
 
    Core keywords MUST be implemented by any processor indicating support
    for the "application/jsonschema+json" media type.
@@ -707,13 +757,13 @@ Table of Contents
    vocabularies or otherwise) begin with a character other than "$" to
    avoid possible future collisions.
 
-5.1.  Environment
+4.1.  Environment
 
    Environment keywords MUST be read by implementations before other
    keywords may be evaluated, as they are capable of impacting the
    behavior of other keywords.
 
-5.1.1.  "$schema"
+4.1.1.  "$schema"
 
    The "$schema" keyword is both used as a JSON Schema dialect
    identifier and as the identifier of a resource which is itself a JSON
@@ -736,7 +786,7 @@ Table of Contents
    Values for this property are defined elsewhere in this and other
    documents, and by other parties.
 
-5.1.2.  "$vocabulary"
+4.1.2.  "$vocabulary"
 
    The "$vocabulary" keyword is used in meta-schemas to identify the
    vocabularies available for use in schemas described by that meta-
@@ -772,7 +822,7 @@ Table of Contents
    The value has no impact if the implementation understands the
    vocabulary.
 
-   Per Section 4.5.2, unrecognized keywords SHOULD be treated as
+   Per Section 3.5.2, unrecognized keywords SHOULD be treated as
    annotations.  This remains the case for keywords defined by
    unrecognized vocabularies.  It is not currently possible to
    distinguish between unrecognized keywords that are defined in
@@ -787,7 +837,7 @@ Table of Contents
    meta-schema M against its own meta-schema M' without requiring the
    implementation to understand the vocabularies declared by M.
 
-5.1.2.1.  Default vocabularies
+4.1.2.1.  Default vocabularies
 
    If "$vocabulary" is absent, an implementation MAY determine behavior
    based on the meta-schema if it is recognized from the URI value of
@@ -806,7 +856,7 @@ Table of Contents
    use of all vocabularies in this specification and the companion
    Validation specification.
 
-5.1.2.2.  Non-inheritability of vocabularies
+4.1.2.2.  Non-inheritability of vocabularies
 
    Note that the processing restrictions on "$vocabulary" mean that
    meta-schemas that reference other meta-schemas using "$ref" or
@@ -823,7 +873,7 @@ Table of Contents
    // search for vocabularies in referenced meta-schemas would be overly
    // burdensome.
 
-5.1.2.3.  Updates to Meta-Schema and Vocabulary URIs
+4.1.2.3.  Updates to Meta-Schema and Vocabulary URIs
 
    Updated vocabulary and meta-schema URIs MAY be published between
    specification drafts in order to correct errors.  Implementations
@@ -831,7 +881,7 @@ Table of Contents
    the next to indicate the same syntax and semantics as those listed
    here.
 
-5.1.3.  "$id"
+4.1.3.  "$id"
 
    The $id keyword identifies a schema resource with its _canonical URI_
    (in the sense of [RFC6596]).  Explicit identification makes it easier
@@ -853,30 +903,30 @@ Table of Contents
 
    The value of an $id may be a full URI or a _relative reference_
    ([RFC3986], Section 4.2).  When a relative URI is used, knowing the
-   base URI becomes important.  Read Section 12.2.1 and Appendix A to
+   base URI becomes important.  Read Section 11.2.1 and Appendix A to
    understand how that must be done.
 
    Note that an URI does not have to be a URL.  Even if it is a URL, the
    URL may not resolve and return a schema, and implementations are
    warned against automatically resolving network references to fetch
-   schemas (see Section 12.1.2).  Nevertheless, the URI still identifies
+   schemas (see Section 11.1.2).  Nevertheless, the URI still identifies
    the schema.
 
    The presence of "$id" in a subschema indicates that the subschema
    constitutes a distinct schema resource within a single schema
    document.
 
-   See also the $anchor keyword (Section 5.1.4) for naming subschemas,
-   and the $ref keyword (Section 5.2.1) in which $id and $anchor values
+   See also the $anchor keyword (Section 4.1.4) for naming subschemas,
+   and the $ref keyword (Section 4.2.1) in which $id and $anchor values
    are frequently used.
 
-5.1.3.1.  Identifying the root schema
+4.1.3.1.  Identifying the root schema
 
    The root schema of a JSON Schema document SHOULD contain an "$id"
    keyword with an absolute-URI ([RFC3986], Section 4.3; containing a
    scheme, but no fragment).
 
-5.1.4.  "$anchor" and "$dynamicAnchor"
+4.1.4.  "$anchor" and "$dynamicAnchor"
 
    Using JSON Pointer fragments requires knowledge of the structure of
    the schema.  When writing schema documents with the intention to
@@ -900,7 +950,7 @@ Table of Contents
    "$dynamicRef" keyword.  This low-level, advanced feature makes it
    easier to extend recursive schemas such as the meta-schemas, without
    imposing any particular semantics on that extension.  See the section
-   on "$dynamicRef" (Section 5.2.1) for details.
+   on "$dynamicRef" (Section 4.2.1) for details.
 
    In most cases, the normal fragment behavior both suffices and is more
    intuitive.  Therefore it is RECOMMENDED that "$anchor" be used to
@@ -921,9 +971,9 @@ Table of Contents
    "$dynamicAnchor", is undefined.  Implementations MAY raise an error
    if such usage is detected.
 
-5.2.  Definitions and References
+4.2.  Definitions and References
 
-5.2.1.  "$ref" and "$dynamicRef"
+4.2.1.  "$ref" and "$dynamicRef"
 
    The "$ref" and "$dynamicRef" keywords are applicator keywords used to
    reference a schema.  Their results are the results of the referenced
@@ -939,7 +989,7 @@ Table of Contents
 
    The resolved URI produced by these keywords is not necessarily a
    network locator, only an identifier.  Even if it is a network
-   locator, implementations should refer to Section 12.1.2 about loading
+   locator, implementations should refer to Section 11.1.2 about loading
    such schemas.
 
    The value of the "$ref" keyword MUST be a string which is a URI-
@@ -967,7 +1017,7 @@ Table of Contents
    If the initially resolved starting point URI includes a fragment that
    was created by the "$dynamicAnchor" keyword, the initial URI MUST be
    replaced by the URI (including the fragment) for the outermost schema
-   resource in the dynamic scope (Section 13.1) that defines an
+   resource in the dynamic scope (Section 12.1) that defines an
    identically named fragment with "$dynamicAnchor".
 
    Otherwise, its behavior is identical to "$ref", and no runtime
@@ -978,7 +1028,7 @@ Table of Contents
    // drafts and an this draft dramatically demonstrates the utility of
    // these keywords.
 
-5.2.2.  "$defs"
+4.2.2.  "$defs"
 
    The "$defs" keyword reserves a location for schema authors to inline
    re-usable JSON Schemas into a more general schema.  The keyword does
@@ -1002,7 +1052,7 @@ Table of Contents
        }
    }
 
-5.3.  "$comment"
+4.3.  "$comment"
 
    This keyword reserves a location for comments from schema authors to
    readers or maintainers of the schema.
@@ -1033,7 +1083,7 @@ Table of Contents
    absence, or contents of "$comment" properties.  In particular, the
    value of "$comment" MUST NOT be collected as an annotation result.
 
-6.  Subschema keywords
+5.  Subschema keywords
 
    This section defines keywords that are RECOMMENDED for use as the
    basis of other vocabularies.
@@ -1052,7 +1102,7 @@ Table of Contents
    https://json-schema.org/draft/2020-12/meta/applicator (https://json-
    schema.org/draft/2020-12/meta/applicator).
 
-6.1.  Keyword Independence
+5.1.  Keyword Independence
 
    Schema keywords typically operate independently, without affecting
    each other's outcomes.
@@ -1068,7 +1118,7 @@ Table of Contents
    *  "contains", whose behavior is affected by the presence and value
       of "minContains", in the Validation vocabulary
 
-6.2.  Keywords for Applying Subschemas in Place
+5.2.  Keywords for Applying Subschemas in Place
 
    These keywords apply subschemas to the same location in the input as
    the parent schema is being applied.  They allow combining or
@@ -1093,7 +1143,7 @@ Table of Contents
    present with an empty schema, and when "if" is not present, both
    "then" and "else" MUST be entirely ignored.
 
-6.2.1.  "allOf"
+5.2.1.  "allOf"
 
    This keyword's value MUST be a non-empty array.  Each item of the
    array MUST be a valid JSON Schema.
@@ -1101,7 +1151,7 @@ Table of Contents
    An input validates successfully against this keyword if it validates
    successfully against all schemas defined by this keyword's value.
 
-6.2.2.  "anyOf"
+5.2.2.  "anyOf"
 
    This keyword's value MUST be a non-empty array.  Each item of the
    array MUST be a valid JSON Schema.
@@ -1112,7 +1162,7 @@ Table of Contents
    subschemas MUST be examined so that annotations are collected from
    each subschema that validates successfully.
 
-6.2.3.  "oneOf"
+5.2.3.  "oneOf"
 
    This keyword's value MUST be a non-empty array.  Each item of the
    array MUST be a valid JSON Schema.
@@ -1121,14 +1171,14 @@ Table of Contents
    successfully against exactly one schema defined by this keyword's
    value.
 
-6.2.4.  "not"
+5.2.4.  "not"
 
    This keyword's value MUST be a valid JSON Schema.
 
    An input is valid against this keyword if it fails to validate
    successfully against the schema defined by this keyword.
 
-6.2.5.  "if"
+5.2.5.  "if"
 
    This keyword's value MUST be a valid JSON Schema.
 
@@ -1144,11 +1194,11 @@ Table of Contents
    also be valid against the subschema value of the "else" keyword, if
    present.
 
-   If Section 13.8 are being collected, they are collected from this
+   If Section 12.8 are being collected, they are collected from this
    keyword's subschema in the usual way, including when the keyword is
    present without either "then" or "else".
 
-6.2.6.  "then"
+5.2.6.  "then"
 
    This keyword's value MUST be a valid JSON Schema.
 
@@ -1161,7 +1211,7 @@ Table of Contents
    evaluate the input against this keyword, for either validation or
    annotation collection purposes, in such cases.
 
-6.2.7.  "else"
+5.2.7.  "else"
 
    This keyword's value MUST be a valid JSON Schema.
 
@@ -1174,7 +1224,7 @@ Table of Contents
    NOT evaluate the input against this keyword, for either validation or
    annotation collection purposes, in such cases.
 
-6.2.8.  "dependentSchemas"
+5.2.8.  "dependentSchemas"
 
    This keyword specifies subschemas that are evaluated if the input is
    an object and contains a certain property.
@@ -1188,12 +1238,12 @@ Table of Contents
 
    Omitting this keyword has the same behavior as an empty object.
 
-6.3.  Keywords for Applying Subschemas to Arrays
+5.3.  Keywords for Applying Subschemas to Arrays
 
    Each of these keywords defines a rule for applying its subschema(s)
    to array items, and combining their results.
 
-6.3.1.  "prefixItems"
+5.3.1.  "prefixItems"
 
    The value of "prefixItems" MUST be a non-empty array of valid JSON
    Schemas.
@@ -1213,7 +1263,7 @@ Table of Contents
    Omitting this keyword has the same assertion behavior as an empty
    array.
 
-6.3.2.  "items"
+5.3.2.  "items"
 
    The value of "items" MUST be a valid JSON Schema.
 
@@ -1241,7 +1291,7 @@ Table of Contents
    checking for the presence and size of a "prefixItems" array.
    Implementations that do not support annotation collection MUST do so.
 
-6.3.3.  "contains"
+5.3.3.  "contains"
 
    The value of this keyword MUST be a valid JSON Schema.
 
@@ -1274,12 +1324,12 @@ Table of Contents
    by other keywords.  This is to ensure that all possible annotations
    are collected.
 
-6.4.  Keywords for Applying Subschemas to Objects
+5.4.  Keywords for Applying Subschemas to Objects
 
    Each of these keywords defines a rule for applying its subschema(s)
    to object properties and combining their results.
 
-6.4.1.  "properties"
+5.4.1.  "properties"
 
    The value of "properties" MUST be an object.  Each value of this
    object MUST be a valid JSON Schema.
@@ -1296,7 +1346,7 @@ Table of Contents
    Omitting this keyword has the same assertion behavior as an empty
    object.
 
-6.4.2.  "patternProperties"
+5.4.2.  "patternProperties"
 
    The value of "patternProperties" MUST be an object.  Each property
    name of this object SHOULD be a valid regular expression, according
@@ -1317,7 +1367,7 @@ Table of Contents
    Omitting this keyword has the same assertion behavior as an empty
    object.
 
-6.4.3.  "additionalProperties"
+5.4.3.  "additionalProperties"
 
    The value of "additionalProperties" MUST be a valid JSON Schema.
 
@@ -1354,7 +1404,7 @@ Table of Contents
    // spec/tree/HEAD/adr/2022-04-08-cref-for-ambiguity-and-fix-later-gh-
    // spec-issue-1172.md) for further details.
 
-6.4.4.  "propertyNames"
+5.4.4.  "propertyNames"
 
    The value of "propertyNames" MUST be a valid JSON Schema.
 
@@ -1364,7 +1414,7 @@ Table of Contents
 
    Omitting this keyword has the same behavior as an empty schema.
 
-7.  Keywords for Unevaluated Locations
+6.  Keywords for Unevaluated Locations
 
    The purpose of these keywords is to enable schema authors to apply
    subschemas to array items or object properties that have not been
@@ -1408,7 +1458,7 @@ Table of Contents
    https://json-schema.org/draft/2020-12/meta/unevaluated (https://json-
    schema.org/draft/2020-12/meta/unevaluated).
 
-7.1.  Keyword Independence
+6.1.  Keyword Independence
 
    Schema keywords typically operate independently, without affecting
    each other's outcomes.  However, the keywords in this vocabulary are
@@ -1421,7 +1471,7 @@ Table of Contents
       annotations from "properties", "patternProperties",
       "additionalProperties" and itself
 
-7.2.  "unevaluatedItems"
+6.2.  "unevaluatedItems"
 
    The value of "unevaluatedItems" MUST be a valid JSON Schema.
 
@@ -1431,7 +1481,7 @@ Table of Contents
    "contains", which can come from those keywords when they are adjacent
    to the "unevaluatedItems" keyword.  Those three annotations, as well
    as "unevaluatedItems", can also result from any and all adjacent
-   in-place applicator (Section 6.2) keywords.  This includes but is not
+   in-place applicator (Section 5.2) keywords.  This includes but is not
    limited to the in-place applicators defined in this document.
 
    If no relevant annotations are present, the "unevaluatedItems"
@@ -1455,7 +1505,7 @@ Table of Contents
    Omitting this keyword has the same assertion behavior as an empty
    schema.
 
-7.3.  "unevaluatedProperties"
+6.3.  "unevaluatedProperties"
 
    The value of "unevaluatedProperties" MUST be a valid JSON Schema.
 
@@ -1465,7 +1515,7 @@ Table of Contents
    and "additionalProperties", which can come from those keywords when
    they are adjacent to the "unevaluatedProperties" keyword.  Those
    three annotations, as well as "unevaluatedProperties", can also
-   result from any and all adjacent in-place applicator (Section 6.2)
+   result from any and all adjacent in-place applicator (Section 5.2)
    keywords.  This includes but is not limited to the in-place
    applicators defined in this document.
 
@@ -1491,7 +1541,7 @@ Table of Contents
    Omitting this keyword has the same assertion behavior as an empty
    schema.
 
-8.  Keywords for Structural Validation
+7.  Keywords for Structural Validation
 
    Validation keywords in a schema impose requirements for successful
    validation of an input.  These keywords are all assertions without
@@ -1511,9 +1561,9 @@ Table of Contents
    https://json-schema.org/draft/2020-12/meta/validation (https://json-
    schema.org/draft/2020-12/meta/validation).
 
-8.1.  Validation Keywords for Any Instance Type
+7.1.  Validation Keywords for Any Instance Type
 
-8.1.1.  "type"
+7.1.1.  "type"
 
    The value of this keyword MUST be either a string or an array.  If it
    is an array, elements of the array MUST be strings and MUST be
@@ -1531,7 +1581,7 @@ Table of Contents
    successfully if its type matches any of the types indicated by the
    strings in the array.
 
-8.1.2.  "enum"
+7.1.2.  "enum"
 
    The value of this keyword MUST be an array.  This array SHOULD have
    at least one element.  Elements in the array SHOULD be unique.
@@ -1541,26 +1591,26 @@ Table of Contents
 
    Elements in the array might be of any type, including null.
 
-8.1.3.  "const"
+7.1.3.  "const"
 
    The value of this keyword MAY be of any type, including null.
 
-   Use of this keyword is functionally equivalent to an Section 8.1.2
+   Use of this keyword is functionally equivalent to an Section 7.1.2
    with a single value.
 
    An input validates successfully against this keyword if its value is
    equal to the value of the keyword.
 
-8.2.  Validation Keywords for Numeric Inputs (number and integer)
+7.2.  Validation Keywords for Numeric Inputs (number and integer)
 
-8.2.1.  "multipleOf"
+7.2.1.  "multipleOf"
 
    The value of "multipleOf" MUST be a number, strictly greater than 0.
 
    A numeric input value is valid only if division by this keyword's
    value results in an integer.
 
-8.2.2.  "maximum"
+7.2.2.  "maximum"
 
    The value of "maximum" MUST be a number, representing an inclusive
    upper limit for a numeric input value.
@@ -1568,7 +1618,7 @@ Table of Contents
    If the input value is a number, then this keyword validates only if
    the input value is less than or exactly equal to "maximum".
 
-8.2.3.  "exclusiveMaximum"
+7.2.3.  "exclusiveMaximum"
 
    The value of "exclusiveMaximum" MUST be a number, representing an
    exclusive upper limit for a numeric input value.
@@ -1576,7 +1626,7 @@ Table of Contents
    If the input value is a number, then it is valid only if it has a
    value strictly less than (not equal to) "exclusiveMaximum".
 
-8.2.4.  "minimum"
+7.2.4.  "minimum"
 
    The value of "minimum" MUST be a number, representing an inclusive
    lower limit for a numeric input value.
@@ -1584,7 +1634,7 @@ Table of Contents
    If the input value is a number, then it is valid only if it has a
    value that is greater than or exactly equal to "minimum".
 
-8.2.5.  "exclusiveMinimum"
+7.2.5.  "exclusiveMinimum"
 
    The value of "exclusiveMinimum" MUST be a number, representing an
    exclusive lower limit for a numeric input value.
@@ -1592,9 +1642,9 @@ Table of Contents
    If the input value is a number, then it is valid only if it has a
    value strictly greater than (not equal to) "exclusiveMinimum".
 
-8.3.  Validation Keywords for Strings
+7.3.  Validation Keywords for Strings
 
-8.3.1.  "maxLength"
+7.3.1.  "maxLength"
 
    The value of this keyword MUST be a non-negative integer.
 
@@ -1604,7 +1654,7 @@ Table of Contents
    The length of a string input value is defined as the number of its
    characters as defined by [RFC8259].
 
-8.3.2.  "minLength"
+7.3.2.  "minLength"
 
    The value of this keyword MUST be a non-negative integer.
 
@@ -1616,7 +1666,7 @@ Table of Contents
 
    Omitting this keyword has the same behavior as a value of 0.
 
-8.3.3.  "pattern"
+7.3.3.  "pattern"
 
    The value of this keyword MUST be a string.  This string SHOULD be a
    valid regular expression, according to the ECMA-262 regular
@@ -1626,16 +1676,16 @@ Table of Contents
    matches the input value successfully.  Recall: regular expressions
    are not implicitly anchored.
 
-8.4.  Validation Keywords for Arrays
+7.4.  Validation Keywords for Arrays
 
-8.4.1.  "maxItems"
+7.4.1.  "maxItems"
 
    The value of this keyword MUST be a non-negative integer.
 
    An array input value is valid against "maxItems" if its size is less
    than, or equal to, the value of this keyword.
 
-8.4.2.  "minItems"
+7.4.2.  "minItems"
 
    The value of this keyword MUST be a non-negative integer.
 
@@ -1644,7 +1694,7 @@ Table of Contents
 
    Omitting this keyword has the same behavior as a value of 0.
 
-8.4.3.  "uniqueItems"
+7.4.3.  "uniqueItems"
 
    The value of this keyword MUST be a boolean.
 
@@ -1654,7 +1704,7 @@ Table of Contents
 
    Omitting this keyword has the same behavior as a value of false.
 
-8.4.4.  "maxContains"
+7.4.4.  "maxContains"
 
    The value of this keyword MUST be a non-negative integer.
 
@@ -1663,9 +1713,9 @@ Table of Contents
    object, as described in that keyword's section.
 
    This keyword behaves as an annotation, which MAY be used by
-   "Section 6.3.3".
+   "Section 5.3.3".
 
-8.4.5.  "minContains"
+7.4.5.  "minContains"
 
    The value of this keyword MUST be a non-negative integer.
 
@@ -1674,23 +1724,23 @@ Table of Contents
    object, as described in that keyword's section.
 
    This keyword behaves as an annotation, which MAY be used by
-   "Section 6.3.3".
+   "Section 5.3.3".
 
    Omitting this keyword has the same behavior as a value of 1.  Per
-   Section 13.3, omitted keywords MUST NOT produce annotation results.
+   Section 12.3, omitted keywords MUST NOT produce annotation results.
    However, as described in the section for "contains", the absence of
    this keyword's annotation causes "contains" to assume a value of 1.
 
-8.5.  Validation Keywords for Objects
+7.5.  Validation Keywords for Objects
 
-8.5.1.  "maxProperties"
+7.5.1.  "maxProperties"
 
    The value of this keyword MUST be a non-negative integer.
 
    An object is valid against "maxProperties" if its number of
    properties is less than, or equal to, the value of this keyword.
 
-8.5.2.  "minProperties"
+7.5.2.  "minProperties"
 
    The value of this keyword MUST be a non-negative integer.
 
@@ -1699,7 +1749,7 @@ Table of Contents
 
    Omitting this keyword has the same behavior as a value of 0.
 
-8.5.3.  "required"
+7.5.3.  "required"
 
    The value of this keyword MUST be an array.  Elements of this array,
    if any, MUST be strings, and MUST be unique.
@@ -1709,7 +1759,7 @@ Table of Contents
 
    Omitting this keyword has the same behavior as an empty array.
 
-8.5.4.  "dependentRequired"
+7.5.4.  "dependentRequired"
 
    The value of this keyword MUST be an object.  Properties in this
    object, if any, MUST be arrays.  Elements in each array, if any, MUST
@@ -1726,9 +1776,9 @@ Table of Contents
 
    Omitting this keyword has the same behavior as an empty object.
 
-9.  Vocabularies for Semantic Content With "format"
+8.  Vocabularies for Semantic Content With "format"
 
-9.1.  Foreword
+8.1.  Foreword
 
    Structural validation alone may be insufficient to allow an
    application to correctly utilize certain values.  The "format"
@@ -1743,7 +1793,7 @@ Table of Contents
    validation for this format attribute and input SHOULD succeed.  All
    format attributes defined in this section apply to strings, but a
    format attribute can be specified to apply to any input type in the
-   instance data model (Section 4.2).
+   instance data model (Section 3.2).
    // Note that the "type" keyword in this specification defines an
    // "integer" type which is not part of the data model.  Therefore a
    // format attribute can be limited to numbers, but not specifically
@@ -1783,12 +1833,12 @@ Table of Contents
    Format-Assertion vocabulary since its requirements are a superset of
    the Format-Annotation vocabulary.
 
-9.2.  Implementation Requirements
+8.2.  Implementation Requirements
 
    The "format" keyword functions as defined by the vocabulary which is
    referenced.
 
-9.2.1.  Format-Annotation Vocabulary
+8.2.1.  Format-Annotation Vocabulary
 
    The value of format MUST be collected as an annotation, if the
    implementation supports annotation collection.  This enables
@@ -1823,7 +1873,7 @@ Table of Contents
    // semantic validation in the application, which is the recommended
    // best practice.
 
-9.2.2.  Format-Assertion Vocabulary
+8.2.2.  Format-Assertion Vocabulary
 
    When the Format-Assertion vocabulary is declared with a value of
    true, implementations MUST provide full validation support for all of
@@ -1873,7 +1923,7 @@ Table of Contents
    understood to greatly increase code size and in some cases execution
    time, and will not be appropriate for all implementations.
 
-9.2.3.  Custom format attributes
+8.2.3.  Custom format attributes
 
    Implementations MAY support custom format attributes.  Save for
    agreement between parties, schema authors SHALL NOT expect a peer
@@ -1888,9 +1938,9 @@ Table of Contents
    additional keywords in a custom vocabulary rather than additional
    format attributes if interoperability is desired.
 
-9.3.  Defined Formats
+8.3.  Defined Formats
 
-9.3.1.  Dates, Times, and Duration
+8.3.1.  Dates, Times, and Duration
 
    These attributes apply to string inputs.
 
@@ -1901,31 +1951,31 @@ Table of Contents
    Implementations supporting formats SHOULD implement support for the
    following attributes:
 
-9.3.1.1.  "date-time"
+8.3.1.1.  "date-time"
 
    A string input is valid against this attribute if it is a valid
    representation according to the "date-time' ABNF rule (referenced
    above).
 
-9.3.1.2.  "date"
+8.3.1.2.  "date"
 
    A string input is valid against this attribute if it is a valid
    representation according to the "full-date" ABNF rule (referenced
    above).
 
-9.3.1.3.  "time"
+8.3.1.3.  "time"
 
    A string input is valid against this attribute if it is a valid
    representation according to the "full-time" ABNF rule (referenced
    above).
 
-9.3.1.4.  "duration"
+8.3.1.4.  "duration"
 
    A string input is valid against this attribute if it is a valid
    representation according to the "duration" ABNF rule (referenced
    above).
 
-9.3.1.5.  Additional RFC3339 Formats
+8.3.1.5.  Additional RFC3339 Formats
 
    Implementations MAY support additional attributes using the other
    format names defined anywhere in that RFC.  If "full-date" or "full-
@@ -1941,18 +1991,18 @@ Table of Contents
    // flexible in general, or these will likely either be promoted to
    // fully specified attributes or dropped.
 
-9.3.2.  Email Addresses
+8.3.2.  Email Addresses
 
    These attributes apply to string inputs.
 
    A string input is valid against these attributes if it is a valid
    Internet email address as follows:
 
-9.3.2.1.  "email"
+8.3.2.1.  "email"
 
    As defined by the "Mailbox" ABNF rule in [RFC5321], Section 4.1.2.
 
-9.3.2.2.  "idn-email"
+8.3.2.2.  "idn-email"
 
    As defined by the extended "Mailbox" ABNF rule in [RFC6531],
    Section 3.3.
@@ -1960,19 +2010,19 @@ Table of Contents
    Note that all strings valid against the "email" attribute are also
    valid against the "idn-email" attribute.
 
-9.3.3.  Hostnames
+8.3.3.  Hostnames
 
    These attributes apply to string inputs.
 
    A string input is valid against these attributes if it is a valid
    representation for an Internet hostname as follows:
 
-9.3.3.1.  "hostname"
+8.3.3.1.  "hostname"
 
    As defined by [RFC1123], Section 2.1, including host names produced
    using the Punycode algorithm specified in [RFC5891], Section 4.4.
 
-9.3.3.2.  "idn-hostname"
+8.3.3.2.  "idn-hostname"
 
    As defined by either RFC 1123 as for hostname, or an
    internationalized hostname as defined by [RFC5890], Section 2.3.2.3.
@@ -1980,49 +2030,49 @@ Table of Contents
    Note that all strings valid against the "hostname" attribute are also
    valid against the "idn-hostname" attribute.
 
-9.3.4.  IP Addresses
+8.3.4.  IP Addresses
 
    These attributes apply to string inputs.
 
    A string input is valid against these attributes if it is a valid
    representation of an IP address as follows:
 
-9.3.4.1.  "ipv4"
+8.3.4.1.  "ipv4"
 
    An IPv4 address according to the "dotted-quad" ABNF syntax as defined
    in [RFC2673], Section 3.2.
 
-9.3.4.2.  "ipv6"
+8.3.4.2.  "ipv6"
 
    An IPv6 address as defined in [RFC4291], Section 2.2.
 
-9.3.5.  Resource Identifiers
+8.3.5.  Resource Identifiers
 
    These attributes apply to string inputs.
 
-9.3.5.1.  "uri"
+8.3.5.1.  "uri"
 
    A string input is valid against this attribute if it is a valid URI,
    according to [RFC3986], Section 3.
 
-9.3.5.2.  "uri-reference"
+8.3.5.2.  "uri-reference"
 
    A string input is valid against this attribute if it is a valid URI
    Reference (either a URI or a relative-reference), according to
    [RFC3986], Section 4.
 
-9.3.5.3.  "iri"
+8.3.5.3.  "iri"
 
    A string input is valid against this attribute if it is a valid IRI,
    according to [RFC3987], Section 2.2.
 
-9.3.5.4.  "iri-reference"
+8.3.5.4.  "iri-reference"
 
    A string input is valid against this attribute if it is a valid IRI
    Reference (either an IRI or a relative-reference), according to
    [RFC3987], Section 2.2.
 
-9.3.5.5.  "uuid"
+8.3.5.5.  "uuid"
 
    A string input is valid against this attribute if it is a valid
    string representation of a UUID, according to [RFC4122].
@@ -2036,9 +2086,9 @@ Table of Contents
    expression of "^urn:uuid:" to indicate the URI scheme and URN
    namespace.
 
-9.3.6.  Templates
+8.3.6.  Templates
 
-9.3.6.1.  "uri-template"
+8.3.6.1.  "uri-template"
 
    This attribute applies to string inputs.
 
@@ -2048,27 +2098,27 @@ Table of Contents
    Note that URI Templates may be used for IRIs; there is no separate
    IRI Template specification.
 
-9.3.7.  JSON Pointers
+8.3.7.  JSON Pointers
 
    These attributes apply to string inputs.
 
    To allow for both regular and relative JSON Pointers, use "anyOf" or
    "oneOf" to indicate support for either format.
 
-9.3.7.1.  "json-pointer"
+8.3.7.1.  "json-pointer"
 
    A string input is valid against this attribute if it is a valid JSON
    string representation of a JSON Pointer, according to [RFC6901],
    Section 5.
 
-9.3.7.2.  "relative-json-pointer"
+8.3.7.2.  "relative-json-pointer"
 
    A string input is valid against this attribute if it is a valid
    [I-D.hha-relative-json-pointer].
 
-9.3.8.  Expressions
+8.3.8.  Expressions
 
-9.3.8.1.  "regex"
+8.3.8.1.  "regex"
 
    This attribute applies to string inputs.
 
@@ -2076,13 +2126,13 @@ Table of Contents
    [ECMA262] regular expression dialect.
 
    Implementations that validate formats MUST accept at least the subset
-   of ECMA-262 defined in Regular Expressions (Section 9.3.8.1) section
+   of ECMA-262 defined in Regular Expressions (Section 8.3.8.1) section
    of this specification, and SHOULD accept all valid ECMA-262
    expressions.
 
-10.  A Vocabulary for the Contents of String-Encoded Data
+9.  A Vocabulary for the Contents of String-Encoded Data
 
-10.1.  Foreword
+9.1.  Foreword
 
    Annotations defined in this section indicate that an instance
    contains non-JSON data encoded in a JSON string.
@@ -2108,7 +2158,7 @@ Table of Contents
    https://json-schema.org/draft/2020-12/meta/content (https://json-
    schema.org/draft/2020-12/meta/content).
 
-10.2.  Implementation Requirements
+9.2.  Implementation Requirements
 
    Due to security and performance concerns, as well as the open-ended
    nature of possible content types, implementations MUST NOT
@@ -2133,11 +2183,11 @@ Table of Contents
    // a feature prove popular, it may be specified more thoroughly in a
    // future draft.
 
-   See also the Security Considerations (Section 16) sections for
+   See also the Security Considerations (Section 15) sections for
    possible vulnerabilities introduced by automatically processing
    inputs according to these keywords.
 
-10.3.  "contentEncoding"
+9.3.  "contentEncoding"
 
    If the input value is a string, this property defines that the string
    SHOULD be interpreted as encoded binary data and decoded using the
@@ -2165,7 +2215,7 @@ Table of Contents
 
    The value of this property MUST be a string.
 
-10.4.  "contentMediaType"
+9.4.  "contentMediaType"
 
    If the input value is a string, this property indicates the media
    type of the contents of the string.  If "contentEncoding" is present,
@@ -2174,7 +2224,7 @@ Table of Contents
    The value of this property MUST be a string, which MUST be a media
    type, as defined by [RFC2046].
 
-10.5.  "contentSchema"
+9.5.  "contentSchema"
 
    If the input value is a string, and if "contentMediaType" is present,
    this property contains a schema which describes the structure of the
@@ -2186,7 +2236,7 @@ Table of Contents
    The value of this property MUST be a valid JSON schema.  It SHOULD be
    ignored if "contentMediaType" is not present.
 
-10.6.  Example
+9.6.  Example
 
    Here is an example schema, illustrating the use of "contentEncoding"
    and "contentMediaType":
@@ -2248,7 +2298,7 @@ Table of Contents
    represented in a JSON string, there is no need for further encoding
    or decoding.
 
-11.  A Vocabulary for Basic Meta-Data Annotations
+10.  A Vocabulary for Basic Meta-Data Annotations
 
    These general-purpose annotation keywords provide commonly used
    information for documentation and user interface display purposes.
@@ -2270,7 +2320,7 @@ Table of Contents
    https://json-schema.org/draft/2020-12/meta/meta-data (https://json-
    schema.org/draft/2020-12/meta/meta-data).
 
-11.1.  "title" and "description"
+10.1.  "title" and "description"
 
    The value of both of these keywords MUST be a string.
 
@@ -2280,7 +2330,7 @@ Table of Contents
    explanation about the purpose of the instance described by this
    schema.
 
-11.2.  "default"
+10.2.  "default"
 
    There are no restrictions placed on the value of this keyword.  When
    multiple occurrences of this keyword are applicable to a single sub-
@@ -2290,7 +2340,7 @@ Table of Contents
    with a particular schema.  It is RECOMMENDED that a default value be
    valid against the associated schema.
 
-11.3.  "deprecated"
+10.3.  "deprecated"
 
    The value of this keyword MUST be a boolean.  When multiple
    occurrences of this keyword are applicable to a single sub-instance,
@@ -2312,7 +2362,7 @@ Table of Contents
 
    Omitting this keyword has the same behavior as a value of false.
 
-11.4.  "readOnly" and "writeOnly"
+10.4.  "readOnly" and "writeOnly"
 
    The value of these keywords MUST be a boolean.  When multiple
    occurrences of these keywords are applicable to a single sub-
@@ -2351,7 +2401,7 @@ Table of Contents
 
    Omitting these keywords has the same behavior as values of false.
 
-11.5.  "examples"
+10.5.  "examples"
 
    The value of this keyword MUST be an array.  There are no
    restrictions placed on the values within the array.  When multiple
@@ -2368,11 +2418,11 @@ Table of Contents
    additional example.  If "examples" is absent, "default" MAY still be
    used in this manner.
 
-12.  Loading and Processing Schemas
+11.  Loading and Processing Schemas
 
-12.1.  Loading a Schema
+11.1.  Loading a Schema
 
-12.1.1.  Initial Base URI
+11.1.1.  Initial Base URI
 
    [RFC3986], Section 5.1 defines how to determine the default base URI
    of a document.
@@ -2399,7 +2449,7 @@ Table of Contents
    in the root schema, this base URI SHOULD be considered the canonical
    URI of the schema document's root schema resource.
 
-12.1.2.  Loading a referenced schema
+11.1.2.  Loading a referenced schema
 
    Although it's impossible to cover all use cases, we start by assuming
    that an implementation given a schema with references to other
@@ -2424,7 +2474,7 @@ Table of Contents
 
    When schemas are downloaded, for example by a generic user-agent that
    does not know until runtime which schemas to download, see Usage for
-   Hypermedia (Section 12.5).
+   Hypermedia (Section 11.5).
 
    Implementations SHOULD be able to associate arbitrary URIs with an
    arbitrary schema and/or automatically associate a schema's "$id"-
@@ -2439,7 +2489,7 @@ Table of Contents
    schemas try to identify as the same URI, an implementation SHOULD
    raise an error condition.
 
-12.1.3.  Detecting a Meta-Schema
+11.1.3.  Detecting a Meta-Schema
 
    Implementations MUST recognize a schema as a meta-schema if it is
    being examined because it was identified as such by another schema's
@@ -2460,7 +2510,7 @@ Table of Contents
    requirements up front.  Meta-schema authors MUST NOT expect such
    features to be interoperable across implementations.
 
-12.2.  Dereferencing
+11.2.  Dereferencing
 
    Schemas can be identified by any URI that has been given to them,
    including a JSON Pointer or their URI given directly by "$id".  In
@@ -2505,7 +2555,7 @@ Table of Contents
    otherwise been supplied to the implementation, it can also be used
    automatically.
 
-12.2.1.  Relative References
+11.2.1.  Relative References
 
    Many hypermedia contexts (like HTML) make use of full URIs, anchors/
    names, and _relative references_ ([RFC3986], Section 5.1).  In JSON
@@ -2526,9 +2576,9 @@ Table of Contents
 
    If no parent schema object explicitly identifies itself as a resource
    with "$id", the base URI is that of the entire document, as
-   established by the steps given in Section 12.1.1.
+   established by the steps given in Section 11.1.1.
 
-12.2.2.  JSON Pointer fragments and embedded schema resources
+11.2.2.  JSON Pointer fragments and embedded schema resources
 
    JSON Pointer URI fragments are constructed based on the structure of
    the schema document, allowing an embedded schema resource and its
@@ -2538,7 +2588,7 @@ Table of Contents
 
    Conceptually, a set of linked schema resources should behave
    identically whether each resource is a separate document connected
-   with schema references (Section 5.2.1), or is structured as a single
+   with schema references (Section 4.2.1), or is structured as a single
    document with one or more schema resources embedded as subschemas.
 
    Since URIs involving JSON Pointer fragments relative to the parent
@@ -2620,7 +2670,7 @@ Table of Contents
    the appropriate canonical URI-based fragments to use instead, are
    provided in Appendix A.
 
-12.3.  Compound Documents
+11.3.  Compound Documents
 
    A Compound Schema Document is defined as a JSON document (sometimes
    called a "bundled" schema) which has multiple embedded JSON Schema
@@ -2630,7 +2680,7 @@ Table of Contents
    Resource, following standard schema loading and processing
    requirements, including determining vocabulary support.
 
-12.3.1.  Bundling
+11.3.1.  Bundling
 
    The bundling process for creating a Compound Schema Document is
    defined as taking references (such as "$ref") to an external Schema
@@ -2672,7 +2722,7 @@ Table of Contents
    some will be created by hand, potentially without individual Schema
    Resources existing on their own previously.
 
-12.3.2.  Differing and Default Dialects
+11.3.2.  Differing and Default Dialects
 
    When multiple schema resources are present in a single document,
    schema resources which do not define with which dialect they should
@@ -2683,7 +2733,7 @@ Table of Contents
    embedded schema resources MAY specify different processing dialects
    using the "$schema" values from their enclosing resource.
 
-12.3.3.  Validating
+11.3.3.  Validating
 
    Given that a Compound Schema Document may have embedded resources
    which identify as using different dialects, these documents SHOULD
@@ -2702,9 +2752,9 @@ Table of Contents
    therefore defaults to that of the enclosing resource, MAY be
    validated by applying the appropriate meta-schema.
 
-12.4.  Caveats
+11.4.  Caveats
 
-12.4.1.  Guarding Against Infinite Recursion
+11.4.1.  Guarding Against Infinite Recursion
 
    A schema MUST NOT be run into an infinite loop evaluating input.  For
    example, if two schemas "#alice" and "#bob" both have an "allOf"
@@ -2713,11 +2763,11 @@ Table of Contents
    Schemas SHOULD NOT make use of infinite recursive nesting like this;
    the behavior is undefined.
 
-12.4.2.  References to Possible Non-Schemas"
+11.4.2.  References to Possible Non-Schemas"
 
    Subschema objects (or booleans) are recognized by their use with
    known applicator keywords or with location-reserving keywords such as
-   "$defs" (Section 5.2.2) that take one or more subschemas as a value.
+   "$defs" (Section 4.2.2) that take one or more subschemas as a value.
    These keywords may be "$defs" and the standard applicators from this
    document, or extension keywords from a known vocabulary, or
    implementation-specific custom keywords.
@@ -2743,7 +2793,7 @@ Table of Contents
    attempt to use any reference target as a schema.  However, this
    behavior is
 
-12.5.  RESTful / Hypermedia Schema References
+11.5.  RESTful / Hypermedia Schema References
 
    JSON and JSON schemas are not always used for HTTP resources or other
    hypermedia resources, and the rest of this document assumes no one
@@ -2753,7 +2803,7 @@ Table of Contents
    documents in a more RESTful manner when using protocols that support
    media types and Web linking ([RFC8288]).
 
-12.5.1.  Linking to a Schema
+11.5.1.  Linking to a Schema
 
    It is RECOMMENDED that instances described by a schema provide a link
    to a downloadable JSON Schema using the link relation "describedby",
@@ -2764,7 +2814,7 @@ Table of Contents
 
           Link: <https://example.com/my-hyper-schema>; rel="describedby"
 
-12.5.2.  Usage Over HTTP
+11.5.2.  Usage Over HTTP
 
    When used for hypermedia systems over a network, HTTP ([RFC9110]) is
    frequently the protocol of choice for distributing schemas.
@@ -2789,7 +2839,7 @@ Table of Contents
    server operators can contact the owner of a potentially misbehaving
    script.
 
-13.  Keyword Behaviors
+12.  Keyword Behaviors
 
    JSON Schema keywords fall into several general behavior categories.
    Assertions validate that an instance satisfies constraints, producing
@@ -2811,9 +2861,9 @@ Table of Contents
    The appropriate location in the input is evaluated against the
    assertion and annotation keywords in the schema object.  The
    interactions of those keyword results to produce the schema object
-   results are governed by Section 13.8.1.2, while the relationship of
+   results are governed by Section 12.8.1.2, while the relationship of
    subschema results to the results of the applicator keyword that
-   applied them is described by Section 13.6.
+   applied them is described by Section 12.6.
 
    Evaluation of a parent schema object can complete once all of its
    subschemas have been evaluated, although in some circumstances
@@ -2823,7 +2873,7 @@ Table of Contents
    for annotation collection, including those that cannot further change
    the assertion result.
 
-13.1.  Lexical Scope and Dynamic Scope
+12.1.  Lexical Scope and Dynamic Scope
 
    While most JSON Schema keywords can be evaluated on their own, or at
    most need to take into account the values or results of adjacent
@@ -2871,16 +2921,16 @@ Table of Contents
    dynamic scopes.  In such cases, it is important to inform the user of
    the dynamic path that produced the error or annotation.
 
-13.2.  Keyword Interactions
+12.2.  Keyword Interactions
 
    Keyword behavior MAY be defined in terms of the annotation results of
-   subschemas (Section 4.1.2) and/or adjacent keywords (keywords within
+   subschemas (Section 3.1.2) and/or adjacent keywords (keywords within
    the same schema object) and their subschemas.  Such keywords MUST NOT
    result in a circular dependency.  Keywords MAY modify their behavior
    based on the presence or absence of another keyword in the same
-   schema object (Section 4.1).
+   schema object (Section 3.1).
 
-13.3.  Default Behaviors
+12.3.  Default Behaviors
 
    A missing keyword MUST NOT produce a false assertion result, MUST NOT
    produce annotation results, and MUST NOT cause any other schema to be
@@ -2907,7 +2957,7 @@ Table of Contents
    implementations that do not support annotation collections will not
    be able to support those keywords or vocabularies that contain them.
 
-13.4.  Handling unrecognized or unsupported keywords
+12.4.  Handling unrecognized or unsupported keywords
 
    Implementations SHOULD treat keywords they do not recognize, or that
    they recognize but do not support, as annotations, where the value of
@@ -2915,10 +2965,10 @@ Table of Contents
    implementation collects these annotations or not, they MUST otherwise
    ignore the keywords.
 
-13.5.  Identifiers
+12.5.  Identifiers
 
    Identifiers define URIs for a schema, or affect how such URIs are
-   resolved in schema references (Section 5.2.1), or both.  The Core
+   resolved in schema references (Section 4.2.1), or both.  The Core
    vocabulary defined in this document defines several identifying
    keywords, most notably "$id".
 
@@ -2932,12 +2982,12 @@ Table of Contents
    limits its URI resolution effects to the matching "$dynamicRef"
    keyword, leaving the behavior of "$ref" undisturbed.
 
-13.6.  Applicators
+12.6.  Applicators
 
    Applicators allow for building more complex schemas than can be
    accomplished with a single schema object.  Evaluation of an input
-   against a schema document (Section 4.1) begins by applying the root
-   schema (Section 4.1.2) to the complete input document.  From there,
+   against a schema document (Section 3.1) begins by applying the root
+   schema (Section 3.1.2) to the complete input document.  From there,
    keywords known as applicators are used to determine which additional
    schemas are applied.  Such schemas may be applied in-place to the
    current location, or to a child location.
@@ -2949,14 +2999,14 @@ Table of Contents
    is defined by the keyword.
 
    Applicator keywords also define how subschema or referenced schema
-   boolean assertion (Section 13.7) results are modified and/or combined
+   boolean assertion (Section 12.7) results are modified and/or combined
    to produce the boolean result of the applicator.  Applicators may
    apply any boolean logic operation to the assertion results of
    subschemas, but MUST NOT introduce new assertion conditions of their
    own.
 
-   Annotation (Section 13.8) results from subschemas are preserved in
-   accordance with Section 13.8.1 so that applications can decide how to
+   Annotation (Section 12.8) results from subschemas are preserved in
+   accordance with Section 12.8.1 so that applications can decide how to
    interpret multiple values.  Applicator keywords do not play a direct
    role in this preservation.
 
@@ -2964,9 +3014,9 @@ Table of Contents
    the location of the schema keyword, so that applications can decide
    how to interpret multiple values.
 
-13.6.1.  Referenced and Referencing Schemas
+12.6.1.  Referenced and Referencing Schemas
 
-   As noted in Section 13.6, an applicator keyword may refer to a schema
+   As noted in Section 12.6, an applicator keyword may refer to a schema
    to be applied, rather than including it as a subschema in the
    applicator's value.  In such situations, the schema being applied is
    known as the referenced schema, while the schema containing the
@@ -2978,14 +3028,14 @@ Table of Contents
    themselves in various referenced and referencing arrangements during
    the evaluation of input against a schema.
 
-   For some by-reference applicators, such as "$ref" (Section 5.2.1),
+   For some by-reference applicators, such as "$ref" (Section 4.2.1),
    the referenced schema can be determined by static analysis of the
    schema document's lexical scope.  Others, such as "$dynamicRef" (with
    "$dynamicAnchor"), may make use of dynamic scoping, and therefore
    only be resolvable in the process of evaluating an input with the
    schema.
 
-13.7.  Assertions
+12.7.  Assertions
 
    JSON Schema can be used to assert constraints on a JSON document,
    which either passes or fails the assertions.  This approach can be
@@ -2997,7 +3047,7 @@ Table of Contents
 
    An input can only fail an assertion that is present in the schema.
 
-13.7.1.  Assertions and Input Primitive Types
+12.7.1.  Assertions and Input Primitive Types
 
    Most assertions only constrain values within a certain primitive
    type.  When the type of the input is not of the type targeted by the
@@ -3028,7 +3078,7 @@ Table of Contents
    otherwise, so if "maxLength" restricted the input to strings, then
    including "null" in "type" would not have any useful effect.
 
-13.8.  Annotations
+12.8.  Annotations
 
    JSON Schema can annotate an instance with information, whenever the
    instance validates against the schema object containing the
@@ -3060,7 +3110,7 @@ Table of Contents
    object that has failed validation MAY be skipped, as annotations are
    not retained for failing schemas.
 
-13.8.1.  Collecting Annotations
+12.8.1.  Collecting Annotations
 
    Annotations are collected by keywords that explicitly define
    annotation-collecting behavior.  Note that boolean schemas cannot
@@ -3081,7 +3131,7 @@ Table of Contents
 
    *  The attached value(s)
 
-13.8.1.1.  Distinguishing Among Multiple Values
+12.8.1.1.  Distinguishing Among Multiple Values
 
    Applications MAY make decisions on which of multiple annotation
    values to use based on the schema location that contributed the
@@ -3160,7 +3210,7 @@ Table of Contents
    presence of two different values for "default" to be an error,
    regardless of their schema locations.
 
-13.8.1.2.  Annotations and Assertions
+12.8.1.2.  Annotations and Assertions
 
    Schema objects that produce a false assertion result MUST NOT produce
    any annotation results, whether from their own keywords or from
@@ -3187,7 +3237,7 @@ Table of Contents
    fails.  The title annotation "String Value" is kept, as the input
    passes the string type assertions.
 
-13.9.  Reserved Locations
+12.9.  Reserved Locations
 
    A fourth category of keywords simply reserve a location to hold re-
    usable components or data of interest to schema authors that is not
@@ -3197,11 +3247,11 @@ Table of Contents
    be redefined by extension keywords.
 
    While these keywords do not directly affect results, as explained in
-   Section 12.4.2 unrecognized extension keywords that reserve locations
+   Section 11.4.2 unrecognized extension keywords that reserve locations
    for re-usable schemas may have undesirable interactions with
    references in certain circumstances.
 
-13.10.  Loading Input Data
+12.10.  Loading Input Data
 
    While none of the vocabularies defined as part of this or the
    associated documents define a keyword which may target and/or load
@@ -3215,7 +3265,7 @@ Table of Contents
    Pointer SHOULD default to using the current location if a default is
    desireable.
 
-14.  Output Formatting
+13.  Output Formatting
 
    JSON Schema is defined to be platform-independent.  As such, to
    increase compatibility across platforms, implementations SHOULD
@@ -3223,7 +3273,7 @@ Table of Contents
    describes the minimum requirements that consumers will need to
    properly interpret validation results.
 
-14.1.  Format
+13.1.  Format
 
    JSON Schema output is defined using the JSON Schema data model.
    Implementations MAY deviate from this as supported by their specific
@@ -3231,7 +3281,7 @@ Table of Contents
    convertible to the JSON format defined herein via serialization or
    other means.
 
-14.2.  Output Formats
+13.2.  Output Formats
 
    This specification defines four output formats.  See the "Output
    Structure" section for the requirements of each format.
@@ -3254,7 +3304,7 @@ Table of Contents
    also provide the "flag" format.  Implementations SHOULD specify in
    their documentation which formats they support.
 
-14.3.  Minimum Information
+13.3.  Minimum Information
 
    Beyond the simplistic "flag" output, additional information is useful
    to aid in debugging a schema or input.  Each sub-result SHOULD
@@ -3265,7 +3315,7 @@ Table of Contents
 
    Implementations MAY elect to provide additional information.
 
-14.3.1.  Keyword Relative Location
+13.3.1.  Keyword Relative Location
 
    The relative location of the validating keyword that follows the
    validation path.  The value MUST be expressed as a JSON Pointer, and
@@ -3280,7 +3330,7 @@ Table of Contents
 
    The JSON key for this information is "keywordLocation".
 
-14.3.2.  Keyword Absolute Location
+13.3.2.  Keyword Absolute Location
 
    The absolute, dereferenced location of the validating keyword.  The
    value MUST be expressed as a full URI using the canonical URI of the
@@ -3303,14 +3353,14 @@ Table of Contents
 
    The JSON key for this information is "absoluteKeywordLocation".
 
-14.3.3.  Instance Location
+13.3.3.  Instance Location
 
    The location of the JSON value within the instance.  The value MUST
    be expressed as a JSON Pointer.
 
    The JSON key for this information is "instanceLocation".
 
-14.3.4.  Error or Annotation
+13.3.4.  Error or Annotation
 
    The error or annotation that is produced by the validation.
 
@@ -3323,7 +3373,7 @@ Table of Contents
    The JSON key for failed validations is "error"; for successful
    validations it is "annotation".
 
-14.3.5.  Nested Results
+13.3.5.  Nested Results
 
    For the two hierarchical structures, this property will hold nested
    errors and annotations.
@@ -3333,7 +3383,7 @@ Table of Contents
    forms, as a keyword with nested results can also have a local error
    or annotation.
 
-14.4.  Output Structure
+13.4.  Output Structure
 
    The output MUST be an object containing a boolean property named
    "valid".  When additional information about the result is required,
@@ -3398,7 +3448,7 @@ Table of Contents
    templating mechanism that allows their users to craft their own
    messages.
 
-14.4.1.  Flag
+13.4.1.  Flag
 
    In the simplest case, merely the boolean result for the "valid" valid
    property needs to be fulfilled.
@@ -3414,7 +3464,7 @@ Table of Contents
    second one passes, there is no need to check the other three.  The
    logic can simply return with success.
 
-14.4.2.  Basic
+13.4.2.  Basic
 
    The "Basic" structure is a flat list of output units.
 
@@ -3455,7 +3505,7 @@ Table of Contents
      ]
    }
 
-14.4.3.  Detailed
+13.4.3.  Detailed
 
    The "Detailed" structure is based on the schema and can be more
    readable for both humans and machines.  Having the structure
@@ -3515,7 +3565,7 @@ Table of Contents
      ]
    }
 
-14.4.4.  Verbose
+13.4.4.  Verbose
 
    The "Verbose" structure is a fully realized hierarchy that exactly
    matches that of the schema.  This structure has applications in form
@@ -3586,16 +3636,16 @@ Table of Contents
      ]
    }
 
-14.4.5.  Output validation schemas
+13.4.5.  Output validation schemas
 
    For convenience, JSON Schema has been provided to validate output
    generated by implementations.  Its URI is: https://json-schema.org/
    draft/2020-12/output/schema (https://json-schema.org/draft/2020-
    12/output/schema).
 
-15.  Extensibility
+14.  Extensibility
 
-15.1.  Non-JSON Inputs
+14.1.  Non-JSON Inputs
 
    It is possible to use JSON Schema with a superset of the JSON Schema
    data model, where an input may be outside any of the six JSON data
@@ -3608,7 +3658,7 @@ Table of Contents
    data model.  The schema itself may only be expressible in this
    superset; for example, to make use of the "const" keyword.
 
-15.2.  Schema Vocabularies
+14.2.  Schema Vocabularies
 
    A schema vocabulary, or simply a vocabulary, is a set of keywords,
    their syntax, and their semantics.  A vocabulary is generally
@@ -3630,13 +3680,13 @@ Table of Contents
    vocabulary use within non-public organizations, a vocabulary
    specification need not be published outside of its scope of use.
 
-15.3.  Meta-Schemas
+14.3.  Meta-Schemas
 
    A schema that itself describes a schema is called a meta-schema.
    Meta-schemas are used to validate JSON Schemas and specify which
    vocabularies they are using.
 
-   Meta-schemas that use the "$vocabulary" keyword (Section 5.1.2) to
+   Meta-schemas that use the "$vocabulary" keyword (Section 4.1.2) to
    declare the vocabularies in use MUST explicitly list the Core
    vocabulary, which MUST have a value of true indicating that it is
    required.
@@ -3687,7 +3737,7 @@ Table of Contents
    design of meta-schema features emphasizes flexibility over
    simplicity.
 
-15.4.  Default JSON Schema Dialect
+14.4.  Default JSON Schema Dialect
 
    The current URI for the default JSON Schema dialect meta-schema is
    https://json-schema.org/draft/2020-12/schema.  For schema author
@@ -3701,7 +3751,7 @@ Table of Contents
    Updated vocabulary and meta-schema URIs may be published between
    specification drafts in order to correct errors.
 
-16.  Security Considerations
+15.  Security Considerations
 
    Both schemas and instances are JSON values.  As such, all security
    considerations defined in [RFC8259] apply.
@@ -3753,16 +3803,16 @@ Table of Contents
    security considerations Scripting Media Types ([RFC4329]) apply when
    processing JavaScript or ECMAScript encoded within a JSON string.
 
-17.  Interoperability Considerations
+16.  Interoperability Considerations
 
-17.1.  Programming Language Independence
+16.1.  Programming Language Independence
 
    JSON Schema is programming language agnostic, and supports the full
    range of values described in the data model.  Be aware, however, that
    some languages and JSON parsers may not be able to represent in
    memory the full range of values describable by JSON.
 
-17.2.  Mathematical Integers
+16.2.  Mathematical Integers
 
    Some programming languages and parsers use different internal
    representations for floating point numbers than they do for integers.
@@ -3770,7 +3820,7 @@ Table of Contents
    For consistency, integer JSON numbers SHOULD NOT be encoded with a
    fractional part.
 
-17.3.  Regular Expressions
+16.3.  Regular Expressions
 
    Keywords MAY use regular expressions to express constraints, or
    constrain the input value to be a regular expression.  These regular
@@ -3812,9 +3862,9 @@ Table of Contents
    anchored, neither at the beginning nor at the end.  This means, for
    instance, the pattern "es" matches "expression".
 
-18.  IANA Considerations
+17.  IANA Considerations
 
-18.1.  application/schema+json
+17.1.  application/schema+json
 
    The proposed MIME media type for JSON Schema is defined as follows:
 
@@ -3828,14 +3878,14 @@ Table of Contents
       those specified for the "application/json" media type.  See JSON
       ([RFC8259]).
 
-   *  Security considerations: See Section 16 above.
+   *  Security considerations: See Section 15 above.
 
-   *  Interoperability considerations: See Section 17.1, Section 17.2,
-      and Section 17.3 above.
+   *  Interoperability considerations: See Section 16.1, Section 16.2,
+      and Section 16.3 above.
 
-   *  Fragment identifier considerations: See Section 4.4.
+   *  Fragment identifier considerations: See Section 3.4.
 
-18.2.  application/schema-instance+json
+17.2.  application/schema-instance+json
 
    The proposed MIME media type for JSON Schema Instances that require a
    JSON Schema-specific media type is defined as follows:
@@ -3850,16 +3900,16 @@ Table of Contents
       those specified for the "application/json" media type.  See JSON
       ([RFC8259]).
 
-   *  Security considerations: See Section 16 above.
+   *  Security considerations: See Section 15 above.
 
-   *  Interoperability considerations: See Section 17.1, Section 17.2,
-      and Section 17.3 above.
+   *  Interoperability considerations: See Section 16.1, Section 16.2,
+      and Section 16.3 above.
 
-   *  Fragment identifier considerations: See Section 4.4.
+   *  Fragment identifier considerations: See Section 3.4.
 
-19.  References
+18.  References
 
-19.1.  Normative References
+18.1.  Normative References
 
    [ECMA262]  European Computer Manufacturers Association, "ECMAScript
               Language Specification 5.1 Edition", ECMA Standard ECMA-
@@ -3976,7 +4026,7 @@ Table of Contents
               Recommendation REC-xml-names-20091208, 8 December 2009,
               <http://www.w3.org/TR/2009/REC-xml-names-20091208/>.
 
-19.2.  Informative References
+18.2.  Informative References
 
    [I-D.bhutton-json-schema-validation]
               Wright, A., Andrews, H., and B. Hutton, "JSON Schema
@@ -4042,8 +4092,8 @@ Appendix A.  Schema identification examples
 
    The schemas at the following URI-encoded JSON Pointers ([RFC6901],
    relative to the root schema) have the following base URIs, and are
-   identifiable by any listed URI in accordance with Section 4.4 and
-   Section 12.2.2 above.
+   identifiable by any listed URI in accordance with Section 3.4 and
+   Section 11.2.2 above.
 
    *  # (document root)
 
@@ -4118,7 +4168,7 @@ Appendix A.  Schema identification examples
    resulting full URI.
    // Multiple "canonical" URIs?  We Acknowledge this is potentially
    // confusing, and direct you to read the CREF located in the JSON
-   // Pointer fragments and embedded schema resources (Section 12.2.2)
+   // Pointer fragments and embedded schema resources (Section 11.2.2)
    // section for futher comments.
 
 Appendix B.  Manipulating schema documents and references
@@ -4300,7 +4350,7 @@ D.1.  Best practices for vocabulary and meta-schema authors"
    any keywords from the Core vocabulary.
 
    It is recommended that meta-schema authors reference each
-   vocabulary's meta-schema using the "allOf" (Section 6.2.1) keyword,
+   vocabulary's meta-schema using the "allOf" (Section 5.2.1) keyword,
    although other mechanisms for constructing the meta-schema may be
    appropriate for certain use cases.
 
