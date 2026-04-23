@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-04-21T00:42:10.089588+00:00",
+  "timestamp": "2026-04-23T00:43:53.800615+00:00",
   "repo": "lisad/draft-dusseault-json-schema",
   "labels": [
     {
@@ -50,5 +50,79 @@
     }
   ],
   "issues": [],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOR8mbas7UgNDN",
+      "title": "Moving Henry's suggestions over and adapting slightly",
+      "url": "https://github.com/lisad/draft-dusseault-json-schema/pull/1",
+      "state": "OPEN",
+      "author": "lisad",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Compared to Henry's suggested text - I really cut out the behavior of readonly/writeonly because that's not in scope and clearer if we just say how the annotation output allows the implementation to control its behavior.",
+      "createdAt": "2026-04-22T04:28:44Z",
+      "updatedAt": "2026-04-22T04:30:29Z",
+      "baseRepository": "lisad/draft-dusseault-json-schema",
+      "baseRefName": "main",
+      "baseRefOid": "1ee0721d16ca7920adb53b992056537683c28eae",
+      "headRepository": "lisad/draft-dusseault-json-schema",
+      "headRefName": "better-annotation-def",
+      "headRefOid": "00eedc8d7af77f6a6a9f652a22d8cec0c0f549b1",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOR8mbas73ewlC",
+          "commit": {
+            "abbreviatedOid": "33073f1"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-04-22T04:29:11Z",
+          "updatedAt": "2026-04-22T04:29:11Z",
+          "comments": [
+            {
+              "originalPosition": 6,
+              "body": "````suggestion\ninstance, returns a standard annotation output.\n````",
+              "createdAt": "2026-04-22T04:29:11Z",
+              "updatedAt": "2026-04-22T04:29:11Z"
+            },
+            {
+              "originalPosition": 34,
+              "body": "````suggestion\nIn the following example of a read/write API accepting and producing\n````",
+              "createdAt": "2026-04-22T04:29:11Z",
+              "updatedAt": "2026-04-22T04:29:11Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOR8mbas73exZj",
+          "commit": {
+            "abbreviatedOid": "865e354"
+          },
+          "author": "github-actions",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2026-04-22T04:30:29Z",
+          "updatedAt": "2026-04-22T04:30:29Z",
+          "comments": [
+            {
+              "originalPosition": 34,
+              "body": "````suggestion\nIn the following example of a read/write API accepting and producing\n````",
+              "createdAt": "2026-04-22T04:30:29Z",
+              "updatedAt": "2026-04-22T04:30:29Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
