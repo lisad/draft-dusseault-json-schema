@@ -117,6 +117,10 @@ be interpreted as defined in {{!RFC8259}}.
 
 ## Functionality
 
+A JSON Schema implementation takes input in the form of a JSON-compatible data
+structure and performs validation and, if the input is accepted as a valid
+instance, returns a standard annotation output.
+
 ### Validation
 
 A JSON Schema document (a _schema_) notates a grammar that describes a language of JSON documents:
@@ -131,9 +135,13 @@ In all validator implementations, equivalent JSON values MUST return the same va
 
 ### Annotation
 
-A JSON Schema may describe additional output to accompany an "accept" result, called _annotations_.
-An annotation is a tuple that, at the minimum, relates a particular annotation keyword in the schema to a particular value within the instance.
-Annotations typically document the meaning of properties, declare relationships between data, or denote hyperlinks.
+A JSON Schema may describe additional output to accompany an "accept" result,
+called _annotations_. An annotation is a tuple that, at the minimum, relates a
+particular annotation keyword in the schema to a particular value within the
+instance. Annotations typically document the meaning of properties, declare
+relationships between data, or denote hyperlinks.  Several forms of output are
+defined, and the annotation process can be disabled as a performance or
+resource consumption optimization.
 
 Output annotations might only be "as true as" the input, and useful only for select inputs. For example, annotations may only meaningfully describe inputs with a particular "profile" link relation, or in some particular context. In any event, annotations never describe violations (rejected inputs).
 
@@ -2109,6 +2117,70 @@ In particular, an application MAY choose to use a widget that hides
 input values as they are typed for write-only fields.
 
 Omitting these keywords has the same behavior as values of false.
+
+### "readOnly" and "writeOnly" example
+
+In the following example of a read/write API accepting and producing
+JSON representations of resources, "username" is a field meant for display
+and cannot be changed, while "password" cannot be retrieved for display
+but can be set to a new value.
+
+```json
+{
+  "$id": "https://example.com/schema",
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "readOnly": true
+    },
+    "password": {
+      "type": "string",
+      "writeOnly": true
+    }
+  }
+}
+```
+
+With the instance following instance processed:
+
+```json
+{
+  "username": "xyz",
+  "password": "123"
+}
+```
+
+two annotation output units would be produced:
+
+```json
+{
+  "keywordLocation": "/properties/username/readOnly",
+  "absoluteKeywordLocation":
+    "https://example.com/schema#/properties/username/readOnly",
+  "instanceLocation": "/username",
+  "annotation": true
+}
+```
+
+```json
+{
+  "keywordLocation": "/properties/password/writeOnly",
+  "absoluteKeywordLocation":
+    "https://example.com/schema#/properties/password/writeOnly",
+  "instanceLocation": "/password",
+  "annotation": true
+}
+```
+
+These annotations are used for context-dependent validation,
+which is performed by the application that invoked schema evaluation.
+
+The API's behavior when sent a readonly field in a write request or
+a write-only field in a read request is out of scope of this document.
+This illustrates how the API server can use the schema to trigger
+whatever that behavior is, rather than hard-code read-only and
+write-only flags or find a custom data-oriented solution.
 
 ## "examples"
 
