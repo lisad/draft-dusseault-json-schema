@@ -1059,7 +1059,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Dusseault, et al.</td>
-<td class="center">Expires 24 October 2026</td>
+<td class="center">Expires 29 October 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1072,12 +1072,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-dusseault-json-schema-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-04-22" class="published">22 April 2026</time>
+<time datetime="2026-04-27" class="published">27 April 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-10-24">24 October 2026</time></dd>
+<dd class="expires"><time datetime="2026-10-29">29 October 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1124,7 +1124,7 @@ for "application/json" documents.<a href="#section-abstract-1" class="pilcrow">�
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 24 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 29 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1524,6 +1524,11 @@ for "application/json" documents.<a href="#section-abstract-1" class="pilcrow">�
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4">
                 <p id="section-toc.1-1.10.2.4.1"><a href="#section-10.4" class="auto internal xref">10.4</a>.  <a href="#name-readonly-and-writeonly" class="internal xref">"readOnly" and "writeOnly"</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.4.2.1">
+                    <p id="section-toc.1-1.10.2.4.2.1.1"><a href="#section-10.4.1" class="auto internal xref">10.4.1</a>.  <a href="#name-readonly-and-writeonly-exam" class="internal xref">"readOnly" and "writeOnly" example</a></p>
+</li>
+                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.5">
                 <p id="section-toc.1-1.10.2.5.1"><a href="#section-10.5" class="auto internal xref">10.5</a>.  <a href="#name-examples" class="internal xref">"examples"</a></p>
@@ -1838,6 +1843,9 @@ be interpreted as defined in <span>[<a href="#RFC8259" class="cite xref">RFC8259
         <h3 id="name-functionality">
 <a href="#section-1.2" class="section-number selfRef">1.2. </a><a href="#name-functionality" class="section-name selfRef">Functionality</a>
         </h3>
+<p id="section-1.2-1">A JSON Schema implementation takes input in the form of a JSON-compatible data
+structure and performs validation and, if the input is accepted as a valid
+instance, returns a standard annotation output.<a href="#section-1.2-1" class="pilcrow">¶</a></p>
 <div id="validation">
 <section id="section-1.2.1">
           <h4 id="name-validation">
@@ -1857,9 +1865,13 @@ An accepted input is called an <em>instance</em> of the schema, and a rejected i
           <h4 id="name-annotation">
 <a href="#section-1.2.2" class="section-number selfRef">1.2.2. </a><a href="#name-annotation" class="section-name selfRef">Annotation</a>
           </h4>
-<p id="section-1.2.2-1">A JSON Schema may describe additional output to accompany an "accept" result, called <em>annotations</em>.
-An annotation is a tuple that, at the minimum, relates a particular annotation keyword in the schema to a particular value within the instance.
-Annotations typically document the meaning of properties, declare relationships between data, or denote hyperlinks.<a href="#section-1.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-1.2.2-1">A JSON Schema may describe additional output to accompany an "accept" result,
+called <em>annotations</em>. An annotation is a tuple that, at the minimum, relates a
+particular annotation keyword in the schema to a particular value within the
+instance. Annotations typically document the meaning of properties, declare
+relationships between data, or denote hyperlinks.  Several forms of output are
+defined, and the annotation process can be disabled as a performance or
+resource consumption optimization.<a href="#section-1.2.2-1" class="pilcrow">¶</a></p>
 <p id="section-1.2.2-2">Output annotations might only be "as true as" the input, and useful only for select inputs. For example, annotations may only meaningfully describe inputs with a particular "profile" link relation, or in some particular context. In any event, annotations never describe violations (rejected inputs).<a href="#section-1.2.2-2" class="pilcrow">¶</a></p>
 <p id="section-1.2.2-3">The interface to access annotations may be highly configurable depending on the implementation, in such ways as limiting output to certain annotation keywords, aggregating values together, or other features to enhance performance. Annotation output may be bypassed entirely.<a href="#section-1.2.2-3" class="pilcrow">¶</a></p>
 <p id="section-1.2.2-4">Annotations may be presented as a set, or as a stream of events, however if the input is rejected during processing, this voids all annotations previously emitted from that input.<a href="#section-1.2.2-4" class="pilcrow">¶</a></p>
@@ -4197,6 +4209,66 @@ input field.<a href="#section-10.4-6" class="pilcrow">¶</a></p>
 In particular, an application MAY choose to use a widget that hides
 input values as they are typed for write-only fields.<a href="#section-10.4-7" class="pilcrow">¶</a></p>
 <p id="section-10.4-8">Omitting these keywords has the same behavior as values of false.<a href="#section-10.4-8" class="pilcrow">¶</a></p>
+<div id="readonly-and-writeonly-example">
+<section id="section-10.4.1">
+          <h4 id="name-readonly-and-writeonly-exam">
+<a href="#section-10.4.1" class="section-number selfRef">10.4.1. </a><a href="#name-readonly-and-writeonly-exam" class="section-name selfRef">"readOnly" and "writeOnly" example</a>
+          </h4>
+<p id="section-10.4.1-1">In the following example of a read/write API accepting and producing
+JSON representations of resources, "username" is a field meant for display
+and cannot be changed, while "password" cannot be retrieved for display
+but can be set to a new value.<a href="#section-10.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-2"><code>json
+{
+  "$id": "https://example.com/schema",
+  "type": "object",
+  "properties": {
+    "username": {
+      "type": "string",
+      "readOnly": true
+    },
+    "password": {
+      "type": "string",
+      "writeOnly": true
+    }
+  }
+}
+</code><a href="#section-10.4.1-2" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-3">With the instance following instance processed:<a href="#section-10.4.1-3" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-4"><code>json
+{
+  "username": "xyz",
+  "password": "123"
+}
+</code><a href="#section-10.4.1-4" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-5">two annotation output units would be produced:<a href="#section-10.4.1-5" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-6"><code>json
+{
+  "keywordLocation": "/properties/username/readOnly",
+  "absoluteKeywordLocation":
+    "https://example.com/schema#/properties/username/readOnly",
+  "instanceLocation": "/username",
+  "annotation": true
+}
+</code><a href="#section-10.4.1-6" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-7"><code>json
+{
+  "keywordLocation": "/properties/password/writeOnly",
+  "absoluteKeywordLocation":
+    "https://example.com/schema#/properties/password/writeOnly",
+  "instanceLocation": "/password",
+  "annotation": true
+}
+</code><a href="#section-10.4.1-7" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-8">These annotations are used for context-dependent validation,
+which is performed by the application that invoked schema evaluation.<a href="#section-10.4.1-8" class="pilcrow">¶</a></p>
+<p id="section-10.4.1-9">The API's behavior when sent a readonly field in a write request or
+a write-only field in a read request is out of scope of this document.
+This illustrates how the API server can use the schema to trigger
+whatever that behavior is, rather than hard-code read-only and
+write-only flags or find a custom data-oriented solution.<a href="#section-10.4.1-9" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="examples">
